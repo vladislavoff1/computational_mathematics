@@ -1,12 +1,12 @@
-# Computation mathematics
+# Computational mathematics
 #### Files
-* Input: `computation_mathematics/src/main/resources/input.txt`
-* Tests folder: `computation_mathematics/src/test`
+* Input: `computational_mathematics/src/main/resources/input.txt`
+* Tests folder: `computational_mathematics/src/test`
 
 #### How to run
 ```bash
-git clone https://github.com/vladislavoff1/computation_mathematics
-cd computation_mathematics
+git clone https://github.com/vladislavoff1/computational_mathematics
+cd computational_mathematics
 mvn compile
 java -cp target/classes main.JarvisMain
 java -cp target/classes main.GragamMain
