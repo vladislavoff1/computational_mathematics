@@ -7,9 +7,8 @@ import java.util.stream.Collectors;
 /**
  * Created by vlad on 16/03/16.
  */
-public class Graham {
-
-    public static List<Point> scan(List<Point> points) {
+public class Jarvis implements ConvexHull {
+    public List<Point> calc(List<Point> points) {
         if (points.size() < 3) {
             return points.stream()
                     .sorted((a, b) -> a.getX() - b.getX())
@@ -24,25 +23,28 @@ public class Graham {
                 .get();
 
         points.remove(min);
-
-        points.sort((a, b) -> Points.ccw(a, min, b));
+        points.add(min);
 
         Stack<Point> result = new Stack<>();
         result.add(min);
-        result.add(points.get(0));
 
-        points.remove(0);
-
-        for (Point point : points) {
-            while (Points.ccw(
-                    result.get(result.size() - 2),
-                    result.get(result.size() - 1),
-                    point
-            ) < 0) {
-                result.pop();
+        while (true) {
+            int right = 0;
+            for (int i = 1; i < points.size(); i++) {
+                if (Points.ccw(result.peek(), points.get(right), points.get(i)) < 0) {
+                    right = i;
+                }
             }
-            result.push(point);
+
+            Point rightPoint = points.get(right);
+            if (rightPoint.equals(min)) {
+                break;
+            }
+
+            result.push(points.get(right));
+            points.remove(right);
         }
+
 
         return result;
     }

@@ -1,8 +1,6 @@
 package main;
 
-import com.romanov_v.computational_mathematics.Graham;
-import com.romanov_v.computational_mathematics.Point;
-import com.romanov_v.computational_mathematics.Points;
+import com.romanov_v.computational_mathematics.*;
 import com.sun.org.apache.bcel.internal.util.ClassLoader;
 
 import java.io.IOException;
@@ -13,14 +11,22 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Created by vlad on 16/03/16.
+ * Created by vlad on 22/03/16.
  */
-public class Main {
+public class ConvexHullFromFile {
 
-    public static void main(String... args) {
+    private final static String RESOURCE_NAME = "input.txt";
+
+    private ConvexHull convexHull;
+
+    public ConvexHullFromFile(ConvexHull convexHull) {
+        this.convexHull = convexHull;
+    }
+
+    public void calc(String... args) {
         List<Point> points;
 
-        try (Stream<String> stream = readResource("input.txt")) {
+        try (Stream<String> stream = readResource(RESOURCE_NAME)) {
 
             points = stream
                     .map(String::trim)
@@ -30,22 +36,22 @@ public class Main {
                     .collect(Collectors.toList());
 
         } catch (IOException e) {
-            System.out.println("Can't read file 'input.txt'");
+            System.out.println("Can't read file '" + RESOURCE_NAME + "'");
             return;
         }
 
-        List<Point> result = Graham.scan(points);
+        List<Point> result = convexHull.calc(points);
 
         result.stream()
                 .forEach(System.out::println);
     }
 
-    private static Stream<String> readResource(String resourceName) throws IOException {
+    private Stream<String> readResource(String resourceName) throws IOException {
         String fileName = ClassLoader.getSystemResource(resourceName).getFile();
         return readFile(fileName);
     }
 
-    private static Stream<String> readFile(String fileName) throws IOException {
+    private Stream<String> readFile(String fileName) throws IOException {
         return Files.lines(Paths.get(fileName));
     }
 

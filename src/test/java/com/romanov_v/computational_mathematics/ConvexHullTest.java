@@ -8,13 +8,15 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * Created by vlad on 16/03/16.
+ * Created by vlad on 22/03/16.
  */
-public class GrahamTest {
+public abstract class ConvexHullTest {
+
+    public abstract ConvexHull getNewExemplar();
 
     @Test
     public void Empty() {
-        List<Point> result = Graham.scan(new LinkedList<>());
+        List<Point> result = getNewExemplar().calc(new LinkedList<>());
         assertTrue(result.isEmpty());
     }
 
@@ -23,7 +25,7 @@ public class GrahamTest {
         List<Point> points = new LinkedList<>();
         points.add(new Point(0, 0));
 
-        List<Point> result = Graham.scan(points);
+        List<Point> result = getNewExemplar().calc(points);
         assertArrayEquals(points.toArray(), result.toArray());
     }
 
@@ -33,7 +35,7 @@ public class GrahamTest {
         points.add(new Point(0, 0));
         points.add(new Point(1, 0));
 
-        List<Point> result = Graham.scan(points);
+        List<Point> result = getNewExemplar().calc(points);
         assertArrayEquals(points.toArray(), result.toArray());
     }
 
@@ -44,7 +46,7 @@ public class GrahamTest {
         points.add(new Point(1, 0));
         points.add(new Point(1, 1));
 
-        List<Point> result = Graham.scan(points);
+        List<Point> result = getNewExemplar().calc(points);
         assertArrayEquals(points.toArray(), result.toArray());
     }
 
@@ -55,7 +57,7 @@ public class GrahamTest {
         points.add(new Point(1, 0));
         points.add(new Point(2, 0));
 
-        List<Point> result = Graham.scan(points);
+        List<Point> result = getNewExemplar().calc(points);
         assertArrayEquals(points.toArray(), result.toArray());
     }
 
@@ -84,7 +86,7 @@ public class GrahamTest {
         expect.add(new Point(5, 5));
         expect.add(new Point(2, 6));
 
-        List<Point> actual = Graham.scan(points);
+        List<Point> actual = getNewExemplar().calc(points);
         assertArrayEquals(expect.toArray(), actual.toArray());
     }
 
