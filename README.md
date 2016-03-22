@@ -1,6 +1,7 @@
 # Computational mathematics
 #### Files
 * Input: `computational_mathematics/src/main/resources/input.txt`
+* Input after build: `computational_mathematics/target/classes/input.txt`
 * Tests folder: `computational_mathematics/src/test`
 
 #### How to run
@@ -9,7 +10,7 @@ git clone https://github.com/vladislavoff1/computational_mathematics
 cd computational_mathematics
 mvn compile
 java -cp target/classes main.JarvisMain
-java -cp target/classes main.GragamMain
+java -cp target/classes main.GrahamMain
 ```
 
 
